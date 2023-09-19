@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: bs-shop
+    environment:
+      MYSQL_ROOT_PASSWORD: hahuudev
+      MYSQL_DATABASE: bs_shop
+
+    ports:
+      - '3307:3306'

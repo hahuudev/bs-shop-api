@@ -1,0 +1,97 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CategorySchema {
+  id: Int!
+  name: String!
+  avatar: String!
+}
+
+type Product {
+  id: Int!
+  name: String!
+  description: String!
+  price: Int!
+  priceOld: Int!
+  avatar: String!
+  categoryId: Int!
+  amount: Int!
+  category: CategorySchema!
+}
+
+type Response {
+  message: String!
+  data: Int!
+}
+
+type UserSchema {
+  id: Int!
+  fullname: String!
+  avatar: String!
+  email: String!
+  password: String!
+  role: String!
+}
+
+type Query {
+  products: [Product!]!
+  getProductById(id: Int!): Product!
+  categories: [CategorySchema!]!
+  getCategoryById(id: Float!): CategorySchema!
+  users: [UserSchema!]!
+  getUserById(id: Float!): UserSchema!
+}
+
+type Mutation {
+  newProduct(createProductInput: AddProductArgs!): Product!
+  updateProduct(product: UpdateProductArgs!): Response!
+  deleteProduct(id: Int!): Response!
+  newCategory(createCategoryInput: CreateCategoryInput!): CategorySchema!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Response!
+  deleteCategory(id: Float!): Response!
+  newUser(createUserInput: CreateUserInput!): UserSchema!
+  updateUser(updateUserInput: UpdateUserInput!): Response!
+  deleteUser(id: Float!): Response!
+}
+
+input AddProductArgs {
+  name: String!
+  price: Int!
+  priceOld: Int!
+  description: String!
+  avatar: String!
+  amount: Int!
+  categoryId: Int!
+}
+
+input UpdateProductArgs {
+  name: String
+  price: Int
+  priceOld: Int
+  description: String
+  avatar: String
+  amount: Int
+  categoryId: Int
+  id: Int!
+}
+
+input CreateCategoryInput {
+  name: String!
+  avatar: String!
+}
+
+input UpdateCategoryInput {
+  id: Int!
+}
+
+input CreateUserInput {
+  fullname: String!
+  avatar: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  id: Float!
+}
