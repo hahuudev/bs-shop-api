@@ -6,19 +6,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'comments' })
-export class CommentEntity {
+@Entity({ name: 'carts' })
+export class CartEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
+  productId: number;
+
+  @Column()
+  amount: number;
+
+  @Column()
   userId: number;
-
-  @Column()
-  content: string;
-
-  @Column()
-  productId: string;
 
   @CreateDateColumn()
   createdAt: Date;

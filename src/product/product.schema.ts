@@ -29,4 +29,10 @@ export class Product {
 
   @Field(() => CategorySchema)
   category: CategorySchema;
+
+  @Field()
+  createdAt: string;
+
+  @Field()
+  updatedAt: string;
 }

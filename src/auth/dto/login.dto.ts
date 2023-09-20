@@ -1,10 +1,14 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Expose } from 'class-transformer';
+import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
-@InputType()
-export class LoginInputType {
-  @Field()
+export class LoginDto {
+  @IsNotEmpty()
+  @IsEmail()
   email: string;
 
-  @Field()
+  @IsNotEmpty()
+  @MinLength(4)
+  @MaxLength(16)
+  @Expose()
   password: string;
 }

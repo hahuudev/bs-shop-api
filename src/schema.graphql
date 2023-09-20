@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Response {
+  message: String!
+  data: Int!
+}
+
 type CategorySchema {
   id: Int!
   name: String!
@@ -18,11 +23,8 @@ type Product {
   categoryId: Int!
   amount: Int!
   category: CategorySchema!
-}
-
-type Response {
-  message: String!
-  data: Int!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type UserSchema {
@@ -34,25 +36,90 @@ type UserSchema {
   role: String!
 }
 
+type OrderProductSchema {
+  id: Int!
+  productId: Int!
+  orderId: Int!
+  amount: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  order: OrderSchema!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type OrderSchema {
+  id: Int!
+  userId: Int!
+  address: Int!
+  totalPrice: Int!
+  status: Boolean!
+  notes: String!
+  createdAt: String!
+  updatedAt: String!
+  orderProducts: [OrderProductSchema!]!
+}
+
+type CommentSchema {
+  id: Int!
+  userId: Int!
+  content: String!
+  productId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CartSchema {
+  id: Int!
+  productId: Int!
+  amount: Int!
+  userId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Query {
   products: [Product!]!
   getProductById(id: Int!): Product!
-  categories: [CategorySchema!]!
-  getCategoryById(id: Float!): CategorySchema!
   users: [UserSchema!]!
   getUserById(id: Float!): UserSchema!
+  categories: [CategorySchema!]!
+  getCategoryById(id: Float!): CategorySchema!
+  orders: [OrderSchema!]!
+  getOrderById(id: Float!): OrderSchema!
+  orderProducts: [OrderSchema!]!
+  getOrderProductById(id: Float!): OrderSchema!
+  comments: [CommentSchema!]!
+  getCommentById(id: Float!): CommentSchema!
+  carts: [CartSchema!]!
+  getcartById(id: Float!): CartSchema!
 }
 
 type Mutation {
   newProduct(createProductInput: AddProductArgs!): Product!
   updateProduct(product: UpdateProductArgs!): Response!
   deleteProduct(id: Int!): Response!
-  newCategory(createCategoryInput: CreateCategoryInput!): CategorySchema!
-  updateCategory(updateCategoryInput: UpdateCategoryInput!): Response!
-  deleteCategory(id: Float!): Response!
   newUser(createUserInput: CreateUserInput!): UserSchema!
   updateUser(updateUserInput: UpdateUserInput!): Response!
   deleteUser(id: Float!): Response!
+  newCategory(createCategoryInput: CreateCategoryInput!): CategorySchema!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Response!
+  deleteCategory(id: Float!): Response!
+  newOrder(createorderInput: CreateOrderInput!): OrderSchema!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Response!
+  deleteOrder(id: Float!): Response!
+  newOrderProduct(createOrderProductInput: CreateOrderProductInput!): OrderSchema!
+  updateOrderProduct(updateOrderProductInput: UpdateOrderProductInput!): Response!
+  deleteOrderProduct(id: Float!): Response!
+  newComment(createCommentInput: CreateCommentInput!): CommentSchema!
+  updateComment(updateCommentInput: UpdateCommentInput!): Response!
+  deleteComment(id: Float!): Response!
+  newcart(createcartInput: CreateCartInput!): CartSchema!
+  updatecart(updateCartInput: UpdateCartInput!): Response!
+  deletecart(id: Float!): Response!
 }
 
 input AddProductArgs {
@@ -76,15 +143,6 @@ input UpdateProductArgs {
   id: Int!
 }
 
-input CreateCategoryInput {
-  name: String!
-  avatar: String!
-}
-
-input UpdateCategoryInput {
-  id: Int!
-}
-
 input CreateUserInput {
   fullname: String!
   avatar: String!
@@ -94,4 +152,55 @@ input CreateUserInput {
 
 input UpdateUserInput {
   id: Float!
+}
+
+input CreateCategoryInput {
+  name: String!
+  avatar: String!
+}
+
+input UpdateCategoryInput {
+  id: Int!
+}
+
+input CreateOrderInput {
+  userId: Int!
+  address: Int!
+  totalPrice: Int!
+  status: Boolean!
+  notes: String!
+}
+
+input UpdateOrderInput {
+  id: Int!
+}
+
+input CreateOrderProductInput {
+  productId: Int!
+  orderId: Int!
+  amount: Int!
+}
+
+input UpdateOrderProductInput {
+  id: Int!
+}
+
+input CreateCommentInput {
+  userId: Int!
+  content: String!
+  productId: Int!
+}
+
+input UpdateCommentInput {
+  id: Int!
+}
+
+input CreateCartInput {
+  productId: Int!
+  amount: Int!
+  userId: Int!
+}
+
+input UpdateCartInput {
+  id: Int!
 }

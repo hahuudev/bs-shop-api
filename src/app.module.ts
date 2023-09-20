@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { CommentModule } from './comment/comment.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CommentModule } from './comment/comment.module';
     AuthModule,
     OrderModule,
     CommentModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

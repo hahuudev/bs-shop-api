@@ -3,6 +3,7 @@ import { CommentService } from './comment.service';
 import { CommentSchema } from './comment.schema';
 import { CreateCommentInput } from './dto/create-comment.input';
 import { UpdateCommentInput } from './dto/update-comment.input';
+import { Response } from 'src/Core/core.entity';
 
 @Resolver('Comment')
 export class CommentResolver {
