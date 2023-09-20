@@ -1,9 +1,11 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Response } from 'src/Core/core.entity';
 import { AddProductArgs } from './args/product-add.args';
 import { UpdateProductArgs } from './args/product-update.args';
 import { Product } from './product.schema';
 import { ProductService } from './product.service';
-import { Response } from 'src/Core/core.entity';
+import { UseGuards } from '@nestjs/common';
+import { IsAuthenGuard } from 'src/auth/is-authen.guard';
 
 @Resolver()
 export class ProductResolver {
@@ -17,6 +19,7 @@ export class ProductResolver {
   }
 
   @Query(() => [Product], { name: 'products' })
+  @UseGuards(IsAuthenGuard)
   getAllProducts() {
     return this.productService.findAll();
   }

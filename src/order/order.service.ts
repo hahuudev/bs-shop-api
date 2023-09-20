@@ -14,7 +14,7 @@ export class OrderService {
 
   async create(createOrderInput: CreateOrderInput) {
     const order = new OrderEntity();
-    order.id = createOrderInput.id;
+    // order.id = createOrderInput.id;
 
     return await this.OrderRepo.save(order);
   }

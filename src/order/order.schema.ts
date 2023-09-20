@@ -1,4 +1,7 @@
-import { ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class OrderSchema {}
+export class OrderSchema {
+  @Field(() => Int)
+  totalPrice: number;
+}

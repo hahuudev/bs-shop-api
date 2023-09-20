@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Response {
+  message: String!
+  data: Int!
+}
+
 type CategorySchema {
   id: Int!
   name: String!
@@ -20,11 +25,6 @@ type Product {
   category: CategorySchema!
 }
 
-type Response {
-  message: String!
-  data: Int!
-}
-
 type UserSchema {
   id: Int!
   fullname: String!
@@ -34,25 +34,48 @@ type UserSchema {
   role: String!
 }
 
+type OrderSchema {
+  totalPrice: Int!
+}
+
+type CommentSchema {
+  id: Int!
+  userId: Int!
+  content: String!
+  productId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Query {
   products: [Product!]!
   getProductById(id: Int!): Product!
-  categories: [CategorySchema!]!
-  getCategoryById(id: Float!): CategorySchema!
   users: [UserSchema!]!
   getUserById(id: Float!): UserSchema!
+  categories: [CategorySchema!]!
+  getCategoryById(id: Float!): CategorySchema!
+  orders: [OrderSchema!]!
+  getOrderById(id: Float!): OrderSchema!
+  comments: [CommentSchema!]!
+  getCommentById(id: Float!): CommentSchema!
 }
 
 type Mutation {
   newProduct(createProductInput: AddProductArgs!): Product!
   updateProduct(product: UpdateProductArgs!): Response!
   deleteProduct(id: Int!): Response!
-  newCategory(createCategoryInput: CreateCategoryInput!): CategorySchema!
-  updateCategory(updateCategoryInput: UpdateCategoryInput!): Response!
-  deleteCategory(id: Float!): Response!
   newUser(createUserInput: CreateUserInput!): UserSchema!
   updateUser(updateUserInput: UpdateUserInput!): Response!
   deleteUser(id: Float!): Response!
+  newCategory(createCategoryInput: CreateCategoryInput!): CategorySchema!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Response!
+  deleteCategory(id: Float!): Response!
+  neworder(createorderInput: CreateOrderInput!): OrderSchema!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Response!
+  deleteOrder(id: Float!): Response!
+  newComment(createCommentInput: CreateCommentInput!): CommentSchema!
+  updateComment(updateCommentInput: UpdateCommentInput!): Response!
+  deleteComment(id: Float!): Response!
 }
 
 input AddProductArgs {
@@ -76,15 +99,6 @@ input UpdateProductArgs {
   id: Int!
 }
 
-input CreateCategoryInput {
-  name: String!
-  avatar: String!
-}
-
-input UpdateCategoryInput {
-  id: Int!
-}
-
 input CreateUserInput {
   fullname: String!
   avatar: String!
@@ -94,4 +108,31 @@ input CreateUserInput {
 
 input UpdateUserInput {
   id: Float!
+}
+
+input CreateCategoryInput {
+  name: String!
+  avatar: String!
+}
+
+input UpdateCategoryInput {
+  id: Int!
+}
+
+input CreateOrderInput {
+  totalPrice: Int!
+}
+
+input UpdateOrderInput {
+  id: Int!
+}
+
+input CreateCommentInput {
+  userId: Int!
+  content: String!
+  productId: Int!
+}
+
+input UpdateCommentInput {
+  id: Int!
 }
