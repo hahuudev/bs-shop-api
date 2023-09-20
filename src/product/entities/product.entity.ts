@@ -1,9 +1,11 @@
 import { CategoryEntity } from 'src/category/entities/category.entity';
+import { OrderProductEntity } from 'src/order/entities/orderProduct.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -42,4 +44,7 @@ export class ProductEntity {
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   category: CategoryEntity;
+
+  @OneToOne(() => OrderProductEntity, (orderProduct) => orderProduct.productId)
+  orderProduct: OrderProductEntity;
 }

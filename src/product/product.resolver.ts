@@ -6,6 +6,7 @@ import { Product } from './product.schema';
 import { ProductService } from './product.service';
 import { UseGuards } from '@nestjs/common';
 import { IsAuthenGuard } from 'src/auth/is-authen.guard';
+import { IsAdminGuard } from 'src/auth/is-admin.guard';
 
 @Resolver()
 export class ProductResolver {
@@ -25,16 +26,19 @@ export class ProductResolver {
   }
 
   @Query(() => Product)
+  @UseGuards(IsAuthenGuard)
   getProductById(@Args({ name: 'id', type: () => Int }) id: number) {
     return this.productService.findOne(id);
   }
 
   @Mutation(() => Response, { name: 'updateProduct' })
+  @UseGuards(IsAuthenGuard, IsAdminGuard)
   updateProduct(@Args('product') product: UpdateProductArgs) {
     return this.productService.update(product);
   }
 
   @Mutation(() => Response, { name: 'deleteProduct' })
+  @UseGuards(IsAuthenGuard, IsAdminGuard)
   deleteProduct(@Args('id', { type: () => Int }) id: number) {
     return this.productService.remove(id);
   }

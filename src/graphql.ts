@@ -50,10 +50,24 @@ export interface UpdateCategoryInput {
 }
 
 export interface CreateOrderInput {
+    userId: number;
+    address: number;
     totalPrice: number;
+    status: boolean;
+    notes: string;
 }
 
 export interface UpdateOrderInput {
+    id: number;
+}
+
+export interface CreateOrderProductInput {
+    productId: number;
+    orderId: number;
+    amount: number;
+}
+
+export interface UpdateOrderProductInput {
     id: number;
 }
 
@@ -64,6 +78,16 @@ export interface CreateCommentInput {
 }
 
 export interface UpdateCommentInput {
+    id: number;
+}
+
+export interface CreateCartInput {
+    productId: number;
+    amount: number;
+    userId: number;
+}
+
+export interface UpdateCartInput {
     id: number;
 }
 
@@ -88,6 +112,8 @@ export interface Product {
     categoryId: number;
     amount: number;
     category: CategorySchema;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface UserSchema {
@@ -99,8 +125,26 @@ export interface UserSchema {
     role: string;
 }
 
+export interface OrderProductSchema {
+    id: number;
+    productId: number;
+    orderId: number;
+    amount: number;
+    createdAt: DateTime;
+    updatedAt: DateTime;
+    order: OrderSchema;
+}
+
 export interface OrderSchema {
+    id: number;
+    userId: number;
+    address: number;
     totalPrice: number;
+    status: boolean;
+    notes: string;
+    createdAt: string;
+    updatedAt: string;
+    orderProducts: OrderProductSchema[];
 }
 
 export interface CommentSchema {
@@ -108,6 +152,15 @@ export interface CommentSchema {
     userId: number;
     content: string;
     productId: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface CartSchema {
+    id: number;
+    productId: number;
+    amount: number;
+    userId: number;
     createdAt: string;
     updatedAt: string;
 }
@@ -121,8 +174,12 @@ export interface IQuery {
     getCategoryById(id: number): CategorySchema | Promise<CategorySchema>;
     orders(): OrderSchema[] | Promise<OrderSchema[]>;
     getOrderById(id: number): OrderSchema | Promise<OrderSchema>;
+    orderProducts(): OrderSchema[] | Promise<OrderSchema[]>;
+    getOrderProductById(id: number): OrderSchema | Promise<OrderSchema>;
     comments(): CommentSchema[] | Promise<CommentSchema[]>;
     getCommentById(id: number): CommentSchema | Promise<CommentSchema>;
+    carts(): CartSchema[] | Promise<CartSchema[]>;
+    getcartById(id: number): CartSchema | Promise<CartSchema>;
 }
 
 export interface IMutation {
@@ -135,12 +192,19 @@ export interface IMutation {
     newCategory(createCategoryInput: CreateCategoryInput): CategorySchema | Promise<CategorySchema>;
     updateCategory(updateCategoryInput: UpdateCategoryInput): Response | Promise<Response>;
     deleteCategory(id: number): Response | Promise<Response>;
-    neworder(createorderInput: CreateOrderInput): OrderSchema | Promise<OrderSchema>;
+    newOrder(createorderInput: CreateOrderInput): OrderSchema | Promise<OrderSchema>;
     updateOrder(updateOrderInput: UpdateOrderInput): Response | Promise<Response>;
     deleteOrder(id: number): Response | Promise<Response>;
+    newOrderProduct(createOrderProductInput: CreateOrderProductInput): OrderSchema | Promise<OrderSchema>;
+    updateOrderProduct(updateOrderProductInput: UpdateOrderProductInput): Response | Promise<Response>;
+    deleteOrderProduct(id: number): Response | Promise<Response>;
     newComment(createCommentInput: CreateCommentInput): CommentSchema | Promise<CommentSchema>;
     updateComment(updateCommentInput: UpdateCommentInput): Response | Promise<Response>;
     deleteComment(id: number): Response | Promise<Response>;
+    newcart(createcartInput: CreateCartInput): CartSchema | Promise<CartSchema>;
+    updatecart(updateCartInput: UpdateCartInput): Response | Promise<Response>;
+    deletecart(id: number): Response | Promise<Response>;
 }
 
+export type DateTime = any;
 type Nullable<T> = T | null;

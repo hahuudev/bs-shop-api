@@ -1,15 +1,15 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { OrderService } from './order.service';
+import { OrderService } from './service/order.service';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
-import { OrderSchema } from './order.schema';
+import { OrderSchema } from './schema/order.schema';
 import { Response } from 'src/Core/core.entity';
 
 @Resolver('Order')
 export class OrderResolver {
   constructor(private readonly orderService: OrderService) {}
 
-  @Mutation(() => OrderSchema, { name: 'neworder' })
+  @Mutation(() => OrderSchema, { name: 'newOrder' })
   create(@Args('createorderInput') createorderInput: CreateOrderInput) {
     return this.orderService.create(createorderInput);
   }

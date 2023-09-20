@@ -1,36 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderInput } from './dto/create-order.input';
-import { UpdateOrderInput } from './dto/update-order.input';
+import { CreateOrderInput } from '../dto/create-order.input';
+import { UpdateOrderInput } from '../dto/update-order.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { OrderEntity } from './entities/order.entity';
+import { OrderEntity } from '../entities/order.entity';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(OrderEntity)
-    public readonly OrderRepo: Repository<OrderEntity>,
+    public readonly orderRepo: Repository<OrderEntity>,
   ) {}
 
   async create(createOrderInput: CreateOrderInput) {
-    const order = new OrderEntity();
-    // order.id = createOrderInput.id;
+    const order = this.orderRepo.create(createOrderInput);
 
-    return await this.OrderRepo.save(order);
+    return await this.orderRepo.save(order);
   }
 
   async findAll(): Promise<OrderEntity[]> {
-    const orders = await this.OrderRepo.find();
+    const orders = await this.orderRepo
+      .createQueryBuilder('orders')
+      .leftJoin('orders.orderProducts', 'order_products')
+      .getMany();
     return orders;
   }
 
   async findOne(id: number) {
-    const Order = await this.OrderRepo.findOne({ where: { id: id } });
+    const Order = await this.orderRepo.findOne({ where: { id: id } });
     return Order;
   }
 
   async update(Order: UpdateOrderInput) {
-    await this.OrderRepo.update(Order.id, Order);
+    await this.orderRepo.update(Order.id, Order);
 
     return {
       message: 'Update Order successfully',
@@ -39,7 +41,7 @@ export class OrderService {
   }
 
   async remove(id: number) {
-    await this.OrderRepo.delete(id);
+    await this.orderRepo.delete(id);
     return {
       message: 'Delete Order successfully',
       data: id,
